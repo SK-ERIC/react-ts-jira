@@ -12,7 +12,7 @@ export const ProjectListScreen = () => {
     personId: "",
   });
   const [list, setList] = useState([]);
-  const debouncedParam = useDebounce(param, 2000);
+  const debouncedParam = useDebounce(param, 200);
 
   useEffect(() => {
     fetch(
