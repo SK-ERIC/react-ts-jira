@@ -4,7 +4,6 @@ import { List } from "./list";
 import { cleanObject, useMount, useDebounce } from "utils";
 import { useHttp } from "utils/http";
 
-const apiUrl = process.env.REACT_APP_API_URL;
 export const ProjectListScreen = () => {
   const [users, setUsers] = useState([]);
   const [param, setParam] = useState({
