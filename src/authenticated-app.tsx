@@ -7,6 +7,7 @@ import { useAuth } from "context/auth-context";
 import { ProjectListScreen } from "screen/project-list";
 import { ProjectScreen } from "screen/project";
 import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
+import { resetRoute } from "utils";
 
 /**
  * grid 和 flex 各自的应用场景
@@ -31,6 +32,7 @@ export const AuthenticatedApp = () => {
               path={"/projects/:projectId/*"}
               element={<ProjectScreen />}
             />
+            <Navigate to={"/projects"} />
           </Routes>
         </Router>
       </Main>
@@ -44,7 +46,9 @@ const PageHeader = () => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
-        <SoftwareLogo width={"18rem"} color={"rgb(38,132, 255)"} />
+        <Button type={"link"} onClick={resetRoute}>
+          <SoftwareLogo width={"18rem"} color={"rgb(38,132, 255)"} />
+        </Button>
         <h3>项目</h3>
         <h3>用户</h3>
       </HeaderLeft>
