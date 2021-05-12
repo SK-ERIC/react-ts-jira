@@ -37,7 +37,6 @@ export const useDebounce = <V>(value: V, delay?: number) => {
 
 export const useArray = <T>(initialArray: T[]) => {
   const [value, setValue] = useState(initialArray);
-
   return {
     value,
     setValue,
@@ -49,4 +48,23 @@ export const useArray = <T>(initialArray: T[]) => {
       setValue(copy);
     },
   };
+};
+
+export const useDocumentTitle = (
+  title: string,
+  keepOnUnmounted: boolean = true
+) => {
+  const oldTitle = document.title;
+
+  useEffect(() => {
+    document.title = title;
+  }, [title]);
+
+  useEffect(() => {
+    return () => {
+      if (!keepOnUnmounted) {
+        document.title = oldTitle;
+      }
+    };
+  }, []);
 };
