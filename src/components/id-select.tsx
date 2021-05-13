@@ -1,5 +1,5 @@
 import { Select } from "antd";
-import { Raw } from "unauthenticated-app";
+import { Raw } from "types";
 
 // 用React方法取出Select组件上的类型
 type SelectProps = React.ComponentProps<typeof Select>;
