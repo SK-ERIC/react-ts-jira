@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 interface State<D> {
   error: Error | null;
@@ -26,41 +26,50 @@ export const useAsync = <D>(
     ...initialState,
   });
 
-  const setData = (data: D) =>
-    setState({
-      data,
-      stat: "success",
-      error: null,
-    });
+  const setData = useCallback(
+    (data: D) =>
+      setState({
+        data,
+        stat: "success",
+        error: null,
+      }),
+    []
+  );
 
-  const setError = (error: Error) =>
-    setState({
-      error,
-      stat: "error",
-      data: null,
-    });
+  const setError = useCallback(
+    (error: Error) =>
+      setState({
+        error,
+        stat: "error",
+        data: null,
+      }),
+    []
+  );
 
   // run 用来触发异步请求
-  const run = (promise: Promise<D>) => {
-    if (!promise || !promise.then) {
-      throw new Error("请传入 Promise 类型数据");
-    }
-    setState({ ...state, stat: "loading" });
-    return promise
-      .then((data) => {
-        setData(data);
-        return data;
-      })
-      .catch((error) => {
-        // catch 会消化异常，如果不主动抛出，外面是接受不到异常的
-        setError(error);
-        if (config.throwOnError) {
-          return Promise.reject(error);
-        } else {
-          return error;
-        }
-      });
-  };
+  const run = useCallback(
+    (promise: Promise<D>) => {
+      if (!promise || !promise.then) {
+        throw new Error("请传入 Promise 类型数据");
+      }
+      setState((prevState) => ({ ...prevState, stat: "loading" }));
+      return promise
+        .then((data) => {
+          setData(data);
+          return data;
+        })
+        .catch((error) => {
+          // catch 会消化异常，如果不主动抛出，外面是接受不到异常的
+          setError(error);
+          if (config.throwOnError) {
+            return Promise.reject(error);
+          } else {
+            return error;
+          }
+        });
+    },
+    [config.throwOnError, setError]
+  );
 
   return {
     isIdle: state.stat === "idle",
