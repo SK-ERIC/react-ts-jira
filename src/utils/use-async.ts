@@ -71,14 +71,11 @@ export const useAsync = <D>(
         .catch((error) => {
           // catch 会消化异常，如果不主动抛出，外面是接受不到异常的
           setError(error);
-          if (config.throwOnError) {
-            return Promise.reject(error);
-          } else {
-            return error;
-          }
+          if (config.throwOnError) return Promise.reject(error);
+          return error;
         });
     },
-    [config.throwOnError, setError]
+    [config.throwOnError, mountedRef, setData, setError]
   );
 
   return {
