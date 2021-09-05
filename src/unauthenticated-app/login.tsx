@@ -1,5 +1,6 @@
 import { Form, Input } from "antd";
 import { useAuth } from "context/auth-context";
+import { useDispatch } from "react-redux";
 import { LongButton } from "unauthenticated-app";
 import { useAsync } from "utils/use-async";
 
