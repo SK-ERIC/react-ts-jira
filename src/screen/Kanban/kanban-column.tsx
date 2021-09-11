@@ -1,3 +1,4 @@
+import React from "react";
 import { Kanban } from "types/kanban";
 import { useTaskTypes } from "utils/task-type";
 import {
@@ -15,7 +16,7 @@ import { Task } from "types/task";
 import { Mark } from "components/mark";
 import { useDeleteKanban } from "utils/kanban";
 import { Row } from "components/lib";
-import React from "react";
+import { Drag, Drop, DropChild } from "components/drag-and-drop";
 
 const TaskTypeIcon = ({ id }: { id: number }) => {
   const { data: taskTypes } = useTaskTypes();
@@ -24,23 +25,26 @@ const TaskTypeIcon = ({ id }: { id: number }) => {
   return <img src={name === "task" ? taskIcon : bugIcon} alt="" />;
 };
 
-const TaskCard = ({ task }: { task: Task }) => {
-  const { startEdit } = useTasksModal();
-  const { name: keyword } = useTasksSearchParams();
-
-  return (
-    <Card
-      style={{ marginBottom: "0.5rem", cursor: "pointer" }}
-      key={task.id}
-      onClick={() => startEdit(task.id)}
-    >
-      <p>
-        <Mark keyword={keyword} name={task.name} />
-      </p>
-      <TaskTypeIcon id={task.typeId} />
-    </Card>
-  );
-};
+const TaskCard = React.forwardRef<HTMLDivElement, { task: Task }>(
+  ({ task, ...props }, ref) => {
+    const { startEdit } = useTasksModal();
+    const { name: keyword } = useTasksSearchParams();
+    return (
+      <div {...props} ref={ref}>
+        <Card
+          style={{ marginBottom: "0.5rem", cursor: "pointer" }}
+          key={task.id}
+          onClick={() => startEdit(task.id)}
+        >
+          <p>
+            <Mark keyword={keyword} name={task.name} />
+          </p>
+          <TaskTypeIcon id={task.typeId} />
+        </Card>
+      </div>
+    );
+  }
+);
 
 export const KanbanColumn = React.forwardRef<
   HTMLDivElement,
@@ -55,9 +59,23 @@ export const KanbanColumn = React.forwardRef<
         <More kanban={kanban} key={kanban.id} />
       </Row>
       <TasksContainer>
-        {tasks?.map((task) => (
-          <TaskCard key={task.id} task={task} />
-        ))}
+        <Drop
+          type={"ROW"}
+          direction={"vertical"}
+          droppableId={String(kanban.id)}
+        >
+          <DropChild>
+            {tasks?.map((task, taskIndex) => (
+              <Drag
+                key={task.id}
+                index={taskIndex}
+                draggableId={"task" + task.id}
+              >
+                <TaskCard key={task.id} task={task} />
+              </Drag>
+            ))}
+          </DropChild>
+        </Drop>
         <CreateTask kanbanId={kanban.id} />
       </TasksContainer>
     </Container>
