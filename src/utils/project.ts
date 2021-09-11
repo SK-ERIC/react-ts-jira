@@ -21,6 +21,7 @@ export const useEditProject = (queryKey: QueryKey) => {
     (params: Partial<Project>) =>
       client(`projects/${params.id}`, {
         method: "PATCH",
+        data: params,
       }),
     useEditConfig(queryKey)
   );
