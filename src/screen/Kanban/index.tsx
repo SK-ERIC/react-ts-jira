@@ -92,7 +92,7 @@ export const useDragEnd = () => {
         const toTask = allTasks?.filter((task) => task.kanbanId === toKanbanId)[
           destination.index
         ];
-        if (fromTask.id === toTask.id) return;
+        if (fromTask?.id === toTask?.id) return;
         const type =
           fromKanbanId === toKanbanId && destination.index > source.index
             ? "after"
