@@ -1,14 +1,15 @@
+import React from "react";
 import { Navigate, Route, Routes } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Button, Dropdown, Menu } from "antd";
 import styled from "@emotion/styled";
 import { ButtonNoPadding, Row } from "components/lib";
 import { useAuth } from "context/auth-context";
-import { ProjectListScreen } from "screen/project-list";
-import { ProjectScreen } from "screen/project";
+import { ProjectListScreen } from "screens/project-list";
+import { ProjectScreen } from "screens/project";
 import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
 import { resetRoute } from "utils";
-import { ProjectModal } from "screen/project-list/project-modal";
+import { ProjectModal } from "screens/project-list/project-modal";
 import { ProjectPopover } from "components/project-popover";
 
 /**

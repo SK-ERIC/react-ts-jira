@@ -1,3 +1,4 @@
+import React, { useCallback } from "react";
 import styled from "@emotion/styled";
 import { SearchPanel } from "./search-panel";
 import { useDocumentTitle } from "utils";
@@ -17,7 +18,6 @@ import { CreateKanban } from "./create-kanban";
 import { TaskModal } from "./task-modal";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { Drag, Drop, DropChild } from "components/drag-and-drop";
-import { useCallback } from "react";
 
 export const KanbanScreen = () => {
   useDocumentTitle("看板列表");

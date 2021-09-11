@@ -1,8 +1,8 @@
+import React, { useEffect } from "react";
 import { Input, Modal, Form, Button } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { TaskTypeSelect } from "components/task-type-select";
 import { UserSelect } from "components/user-select";
-import { useEffect } from "react";
 import { useDeleteTask, useEditTask } from "utils/task";
 import { useTasksModal, useTasksQueryKey } from "./util";
 

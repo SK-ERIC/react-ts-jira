@@ -1,7 +1,8 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import { Route, Routes, Navigate, useLocation } from "react-router";
-import { KanbanScreen } from "screen/Kanban";
-import { EpicScreen } from "screen/epic";
+import { KanbanScreen } from "screens/kanban";
+import { EpicScreen } from "screens/epic";
 import styled from "@emotion/styled";
 import { Menu } from "antd";
 
@@ -52,4 +53,5 @@ const Main = styled.div`
 const Container = styled.div`
   display: grid;
   grid-template-columns: 16rem 1fr;
+  width: 100%;
 `;

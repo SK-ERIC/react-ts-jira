@@ -1,6 +1,7 @@
+import React from "react";
 import styled from "@emotion/styled";
 import { Divider, List, Popover, Typography } from "antd";
-import { useProjectModal } from "screen/project-list/util";
+import { useProjectModal } from "screens/project-list/util";
 import { useProjects } from "utils/project";
 import { ButtonNoPadding } from "./lib";
 
