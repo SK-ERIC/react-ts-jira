@@ -1,5 +1,5 @@
 import { QueryKey, useMutation, useQuery } from "react-query";
-import { Project } from "screen/project-list/list";
+import { Project } from "types/project";
 import { useHttp } from "./http";
 import {
   useAddConfig,
